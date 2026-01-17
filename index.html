@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Havoc Military</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0a1e3f;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* Üdvözlő overlay */
+#welcome-overlay {
+    position: fixed;
+    top: 0.5cm;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 900px;
+    padding: 15px 0;
+    background: #2563eb;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    box-shadow: 0 0 20px #3b82f6;
+    z-index: 10000;
+    opacity: 1;
+    pointer-events: none;
+}
+
+/* Header és tartalom */
+header {
+    background: linear-gradient(135deg, #0b3c91, #041a3d);
+    padding: 60px 20px;
+    text-align: center;
+}
+header h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    color: #60a5fa;
+}
+header p {
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    color: #cbd5f5;
+}
+
+section {
+    padding: 50px 20px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.card {
+    background: #081a33;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    margin-bottom: 30px;
+    transition: transform 0.3s ease;
+}
+.card:hover { transform: translateY(-5px); }
+
+ul { line-height: 1.8; }
+
+.btn {
+    display: inline-block;
+    margin: 10px 10px 0 0;
+    padding: 12px 22px;
+    background: #1e40af;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: background 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
+    box-shadow: 0 0 0 rgba(59,130,246,0.0);
+    cursor: pointer;
+}
+.btn:hover {
+    background: #1e3a8a;
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 0 25px rgba(59,130,246,0.7);
+}
+
+footer {
+    text-align: center;
+    padding: 30px 20px;
+    background: #081a33;
+    color: #93c5fd;
+}
+
+/* Konfetti */
+.particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.9;
+    z-index: 9999;
+}
+</style>
+</head>
+<body>
+
+<!-- Üdvözlő overlay -->
+<div id="welcome-overlay">Üdvözlünk a Havoc Military oldalán!</div>
+
+<!-- Fő tartalom -->
+<header>
+    <h1>HAVOC MILITARY V3💙</h1>
+ 
+</header>
+
+<section>
+    <div class="card">
+        <h2>Kik vagyunk?</h2>
+        <p>A <strong>Havoc Military</strong>„A Havoc Military egy dinamikus, katonai stílusú közösség, ahol a taktika, a csapatmunka és az izgalmas küldetések állnak a középpontban. Célunk egy összetartó, aktív és tiszteletteljes közösség építése, ahol minden játékos értékes része a csapatnak.”</p>
+    </div>
+
+    <div class="card">
+        <h2>Mit kínálunk?</h2>
+        <ul>
+            <li> Minden pillanat egy új kaland a Havoc Military világában!</li>
+            <li>🪖 Képzések és akciók – fejleszd a képességeidet!</li>
+            <li>🎮 Élő, aktív közösség – mindig van kivel játszani!</li>
+            <li>📢 Izgalmas események és küldetések – ne maradj le semmiről!</li>
+            <li>🤝 Barátságos, de fegyelmezett környezet</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>Csatlakozás / Eszközök</h2>
+        <button class="btn" id="discord-btn">💬 Discord</button>
+        <button class="btn" id="anticheat-btn">🍇 Blueberry Anticheat</button>
+        <button class="btn" id="ppshop-btn">🛒 PPSHOP</button>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 Havoc Military | Minden jog fenntartva</p>
+</footer>
+
+<script>
+// Üdvözlő overlay eltűnése 3 mp után
+setTimeout(() => {
+    const overlay = document.getElementById('welcome-overlay');
+    overlay.style.transition = 'opacity 1s ease, transform 1s ease';
+    overlay.style.opacity = '0';
+    overlay.style.transform = 'translate(-50%, -50px)';
+    setTimeout(() => overlay.remove(), 1000);
+}, 3000);
+
+// Optimalizált konfetti
+const colors = ['#3b82f6','#facc15','#f87171','#34d399','#a78bfa','#f472b6'];
+let particles = [];
+
+function spawnParticle() {
+    const p = document.createElement('div');
+    p.classList.add('particle');
+    const size = Math.random()*8 + 4;
+    p.style.width = p.style.height = size + 'px';
+    p.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+    p.x = Math.random()*window.innerWidth;
+    p.y = -10;
+    p.vx = (Math.random()-0.5)*2;
+    p.vy = Math.random()*3 + 2;
+    p.element = p;
+    document.body.appendChild(p);
+    p.style.left = p.x + 'px';
+    p.style.top = p.y + 'px';
+    particles.push(p);
+}
+
+function animateParticles() {
+    for(let i=particles.length-1; i>=0; i--){
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.style.left = p.x + 'px';
+        p.style.top = p.y + 'px';
+        p.style.transform = `rotate(${p.y*10}deg)`;
+        if(p.y > window.innerHeight){ 
+            p.element.remove();
+            particles.splice(i,1);
+        }
+    }
+    requestAnimationFrame(animateParticles);
+}
+
+let spawnCount = 0;
+const interval = setInterval(() => {
+    spawnParticle();
+    spawnCount++;
+    if(spawnCount > 100) clearInterval(interval);
+}, 30);
+
+animateParticles();
+
+// Gombok
+document.getElementById('discord-btn').addEventListener('click', () => {
+    window.open('https://discord.gg/Xtg2P3VtsZ','_blank');
+});
+document.getElementById('anticheat-btn').addEventListener('click', () => {
+    window.open('https://blueberryanticheat.mysellauth.com/','_blank');
+});
+document.getElementById('ppshop-btn').addEventListener('click', () => {
+    window.open('https://havocmilitary.mysellauth.com/','_blank');
+});
+</script>
+
+</body>
+</html>
+
+
